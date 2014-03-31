@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-
-  <app title="PhysicsTest" file="PhysicsTest" path="bin" main="Main" version="1.0.0" company="AnimalsPlayGames.com" />
+  <app path="bin" main="apg.ragdoll.client.Main" version="1.0.0" company="AnimalsPlayGames.com" />
 
   <set name="SWF_VERSION" value="11.8" />
 

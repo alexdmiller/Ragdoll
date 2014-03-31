@@ -1,11 +1,10 @@
-package;
+package apg.ragdoll.client;
 
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.net.Socket;
 import flash.Lib;
 
-import flixel.FlxG;
-import flixel.FlxGame;
 
 class Main extends Sprite {
   public function new() {
@@ -14,7 +13,6 @@ class Main extends Sprite {
   }
 
   private function init(event) {
-    var game = new RagdollGame(stage.stageWidth, stage.stageHeight);
-    addChild(game);
+    var socket = new Socket('localhost', 9999);
   }
 }
