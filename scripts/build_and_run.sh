@@ -1,5 +1,5 @@
 # echo "compiling and running client..."
-# lime test flash
+# lime test neko &
 echo "compiling server..."
 haxe -main apg.ragdoll.server.Main -neko bin/server/server.n -cp source
 echo "running server..."

@@ -13,6 +13,7 @@ class Main extends Sprite {
   }
 
   private function init(event) {
+    trace('hello');
     var socket = new Socket('localhost', 9999);
   }
 }
