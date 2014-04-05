@@ -4,14 +4,14 @@ import apg.ragdoll.server.states.GameState;
 import apg.ragdoll.server.states.BaseGameState;
 
 @:allow(apg.ragdoll.server.states)
-class Game {
-  private var players : Array<Player>;
+class GameServer {
+  private var players : Array<PlayerConnection>;
   private var currentState : GameState;
   private var maxPlayers : Int;
 
   public function new(maxPlayers : Int) {
     this.maxPlayers = maxPlayers;
-    this.players = new Array<Player>();
+    this.players = new Array<PlayerConnection>();
     setState(new BaseGameState());
   }
 
@@ -21,8 +21,8 @@ class Game {
     this.currentState.init(this);
   }
 
-  public function addPlayer(player : Player) : Void {
-    setState(currentState.addPlayer(player));
+  public function addPlayer(player : PlayerConnection) : Void {
+    setState(currentState.addPlayerConnection(player));
   }
 
   public function needsPlayers() : Bool {
@@ -30,6 +30,8 @@ class Game {
   }
 
   public function broadcastToPlayers(message) : Void {
-    
+    for (player in this.players) {
+      
+    }
   }
 }

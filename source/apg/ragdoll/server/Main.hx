@@ -28,13 +28,13 @@ class Main {
 
   private static function startNewGame() {
     var parentThread : Thread = Thread.readMessage(true);
-    var game : Game = new Game(1);
-    game.setState(new WaitForPlayers());
-    while (game.needsPlayers()) {
+    var gameServer : GameServer = new GameServer(1);
+    gameServer.setState(new WaitForPlayers());
+    while (gameServer.needsPlayers()) {
       parentThread.sendMessage(GameThreadState.NeedsConnections);
       try {
         var clientConnection : Socket = Thread.readMessage(true);
-        game.addPlayer(new Player(clientConnection));
+        gameServer.addPlayer(new PlayerConnection(clientConnection));
       } catch (error : String) {
         trace(error);
       }

@@ -2,7 +2,7 @@ package apg.ragdoll.server;
 
 import sys.net.Socket;
 
-class Player {
+class PlayerConnection {
   private var socket : Socket;
   private var name : String;
 

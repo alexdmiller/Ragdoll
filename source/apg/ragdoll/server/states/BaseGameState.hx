@@ -1,15 +1,15 @@
 package apg.ragdoll.server.states;
 
 class BaseGameState implements GameState {
-  private var game : Game;
+  private var gameServer : GameServer;
 
   public function new() { }
 
-  public function init(game : Game) {
-    this.game = game;
+  public function init(gameServer : GameServer) {
+    this.gameServer = gameServer;
   }
 
-  public function addPlayer(player : Player) : GameState {
+  public function addPlayerConnection(player : PlayerConnection) : GameState {
     return this;
   }
 }
