@@ -30,6 +30,6 @@ class Game {
   }
 
   public function broadcastToPlayers(message) : Void {
-
+    
   }
 }
