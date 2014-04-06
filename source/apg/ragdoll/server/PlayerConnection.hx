@@ -1,13 +1,15 @@
 package apg.ragdoll.server;
 
-import sys.net.Socket;
+import apg.net.MessageSocket;
+import apg.ragdoll.common.messages.PlayerInfoMessage;
 
 class PlayerConnection {
-  private var socket : Socket;
+  private var socket : MessageSocket;
   private var name : String;
 
-  public function new(socket : Socket) {
+  public function new(socket : MessageSocket, playerInfo : PlayerInfoMessage) {
     this.socket = socket;
+    this.name = playerInfo.name;
   }
 
   public function send() {

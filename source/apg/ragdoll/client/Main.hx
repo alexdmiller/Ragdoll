@@ -2,9 +2,13 @@ package apg.ragdoll.client;
 
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.net.Socket;
 import flash.Lib;
+import sys.net.Socket;
+import sys.net.Host;
 
+import apg.net.MessageSocket;
+import apg.net.HaxeMessageSocket;
+import apg.ragdoll.common.messages.PlayerInfoMessage;
 
 class Main extends Sprite {
   public function new() {
@@ -13,7 +17,9 @@ class Main extends Sprite {
   }
 
   private function init(event) {
-    trace('hello');
-    var socket = new Socket('localhost', 9999);
+    var socket = new Socket();
+    socket.connect(new sys.net.Host("localhost"), 9999);
+    var messageSocket : MessageSocket = new HaxeMessageSocket(socket);
+    messageSocket.send(PlayerInfoMessage.withName('Alex'));
   }
 }

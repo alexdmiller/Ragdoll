@@ -3,8 +3,13 @@ package apg.ragdoll.server;
 import sys.net.Socket;
 import sys.net.Host;
 import neko.vm.Thread;
+import haxe.Unserializer;
 
+import apg.net.MessageSocket;
+import apg.net.HaxeMessageSocket;
 import apg.ragdoll.server.states.WaitForPlayers;
+import apg.ragdoll.common.messages.PlayerInfoMessage;
+
 
 enum GameThreadState {
   NeedsConnections;
@@ -33,8 +38,10 @@ class Main {
     while (gameServer.needsPlayers()) {
       parentThread.sendMessage(GameThreadState.NeedsConnections);
       try {
-        var clientConnection : Socket = Thread.readMessage(true);
-        gameServer.addPlayer(new PlayerConnection(clientConnection));
+        var clientConnection : MessageSocket = new HaxeMessageSocket(Thread.readMessage(true));
+        var playerInfo : PlayerInfoMessage = cast(clientConnection.recieve(), PlayerInfoMessage);
+        trace(playerInfo);
+        gameServer.addPlayer(new PlayerConnection(clientConnection, playerInfo));
       } catch (error : String) {
         trace(error);
       }
