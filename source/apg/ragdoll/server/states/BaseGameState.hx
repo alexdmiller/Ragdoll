@@ -5,8 +5,9 @@ class BaseGameState implements GameState {
 
   public function new() { }
 
-  public function init(gameServer : GameServer) {
+  public function init(gameServer : GameServer) : GameState {
     this.gameServer = gameServer;
+    return this;
   }
 
   public function addPlayerConnection(player : PlayerConnection) : GameState {

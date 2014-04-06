@@ -9,6 +9,7 @@ import sys.net.Host;
 import apg.net.MessageSocket;
 import apg.net.HaxeMessageSocket;
 import apg.ragdoll.common.messages.PlayerInfoMessage;
+import apg.ragdoll.common.messages.GameComponentsMessage;
 
 class Main extends Sprite {
   public function new() {
@@ -20,6 +21,10 @@ class Main extends Sprite {
     var socket = new Socket();
     socket.connect(new sys.net.Host("localhost"), 9999);
     var messageSocket : MessageSocket = new HaxeMessageSocket(socket);
-    messageSocket.send(PlayerInfoMessage.withName('Alex'));
+    messageSocket.send(PlayerInfoMessage.withName(Std.string(Std.random(20))));
+
+    var gameComponents : GameComponentsMessage =
+        cast(messageSocket.recieve(), GameComponentsMessage);
+    trace(gameComponents);
   }
 }

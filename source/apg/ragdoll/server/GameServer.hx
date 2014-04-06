@@ -1,5 +1,6 @@
 package apg.ragdoll.server;
 
+import apg.net.MessageSocket;
 import apg.ragdoll.server.states.GameState;
 import apg.ragdoll.server.states.BaseGameState;
 
@@ -18,7 +19,10 @@ class GameServer {
   public function setState(newState : GameState) : Void {
     trace('game state -> ' + Type.getClassName(Type.getClass(newState)));
     this.currentState = newState;
-    this.currentState.init(this);
+    var nextState : GameState = this.currentState.init(this);
+    if (nextState != this.currentState) {
+      setState(nextState);
+    }
   }
 
   public function addPlayer(player : PlayerConnection) : Void {
@@ -31,7 +35,7 @@ class GameServer {
 
   public function broadcastToPlayers(message) : Void {
     for (player in this.players) {
-      
+      player.socket.send(message);
     }
   }
 }

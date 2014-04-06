@@ -40,7 +40,6 @@ class Main {
       try {
         var clientConnection : MessageSocket = new HaxeMessageSocket(Thread.readMessage(true));
         var playerInfo : PlayerInfoMessage = cast(clientConnection.recieve(), PlayerInfoMessage);
-        trace(playerInfo);
         gameServer.addPlayer(new PlayerConnection(clientConnection, playerInfo));
       } catch (error : String) {
         trace(error);
