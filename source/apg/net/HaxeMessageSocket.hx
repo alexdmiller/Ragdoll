@@ -2,6 +2,7 @@ package apg.net;
 
 import haxe.Serializer;
 import haxe.Unserializer;
+import apg.net.MessageSocket.Message;
 
 class HaxeMessageSocket implements MessageSocket {
   private var socket : sys.net.Socket;
@@ -10,14 +11,14 @@ class HaxeMessageSocket implements MessageSocket {
     this.socket = socket;
   }
 
-  public function send(message : MessageSocket.Message) : Void {
+  public function send(message : Message) : Void {
     var messageString = Serializer.run(message);
     socket.write(messageString + '\n');
   }
 
-  public function recieve() : MessageSocket.Message {
+  public function recieve() : Message {
     var messageString = socket.input.readLine();
-    var message : MessageSocket.Message = Unserializer.run(messageString);
+    var message : Message = Unserializer.run(messageString);
     return message;
   }
 }

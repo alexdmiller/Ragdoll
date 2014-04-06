@@ -1,4 +1,4 @@
-package apg.ragdoll.common.messages;
+package apg.ragdoll.messages;
 
 import apg.net.MessageSocket.Message;
 

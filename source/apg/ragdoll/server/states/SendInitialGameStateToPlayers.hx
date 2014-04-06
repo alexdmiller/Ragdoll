@@ -1,6 +1,6 @@
 package apg.ragdoll.server.states;
 
-import apg.ragdoll.common.messages.GameComponentsMessage;
+import apg.ragdoll.messages.GameComponentsMessage;
 
 class SendInitialGameStateToPlayers extends BaseGameState implements GameState {
   override public function init(gameServer : GameServer) : GameState {

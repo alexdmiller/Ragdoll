@@ -1,7 +1,7 @@
 package apg.ragdoll.server;
 
 import apg.net.MessageSocket;
-import apg.ragdoll.common.messages.PlayerInfoMessage;
+import apg.ragdoll.messages.PlayerInfoMessage;
 
 class PlayerConnection {
   public var socket(default, null) : MessageSocket;

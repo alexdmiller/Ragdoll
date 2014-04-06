@@ -8,7 +8,7 @@ import haxe.Unserializer;
 import apg.net.MessageSocket;
 import apg.net.HaxeMessageSocket;
 import apg.ragdoll.server.states.WaitForPlayers;
-import apg.ragdoll.common.messages.PlayerInfoMessage;
+import apg.ragdoll.messages.PlayerInfoMessage;
 
 
 enum GameThreadState {

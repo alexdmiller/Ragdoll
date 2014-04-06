@@ -8,8 +8,8 @@ import sys.net.Host;
 
 import apg.net.MessageSocket;
 import apg.net.HaxeMessageSocket;
-import apg.ragdoll.common.messages.PlayerInfoMessage;
-import apg.ragdoll.common.messages.GameComponentsMessage;
+import apg.ragdoll.messages.PlayerInfoMessage;
+import apg.ragdoll.messages.GameComponentsMessage;
 
 class Main extends Sprite {
   public function new() {
