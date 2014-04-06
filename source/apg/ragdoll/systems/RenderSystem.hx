@@ -33,13 +33,13 @@ class RenderSystem extends System {
     var sprite : Sprite = new Sprite();
     sprite.graphics.beginFill(0xFFFFFF);
     sprite.graphics.drawRect(0, 0, 100, 100);
-    node.viewDefinition.sprite = sprite;
+    node.sprite = sprite;
 
-    container.addChild(node.viewDefinition.sprite);
+    container.addChild(node.sprite);
   }
 
   private function removeFromDisplay( node : RenderNode ) : Void {
-    container.removeChild(node.viewDefinition.sprite);
+    container.removeChild(node.sprite);
   }
 
   override public function update(time : Float) : Void {
