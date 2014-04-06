@@ -1,12 +1,45 @@
 package apg.ragdoll.systems;
 
-import flash.display.DisplayObject;
-import apg.ragdoll.nodes.RenderNode;
+import flash.display.DisplayObjectContainer;
+import flash.display.Sprite;
+
 import ash.core.System;
+import ash.core.Engine;
+
+import apg.ragdoll.nodes.RenderNode;
+import apg.ragdoll.components.PhysicalBody;
 
 class RenderSystem extends System {
-  public function new() {
+  var container : DisplayObjectContainer;
+
+  public function new(container : DisplayObjectContainer) {
     super();
+    this.container = container;
+  }
+
+  override public function addToEngine(engine : Engine) : Void {
+    var nodes = engine.getNodeList(RenderNode);
+    for (node in nodes) {
+      addToDisplay(node);
+    }
+    nodes.nodeAdded.add(addToDisplay );
+    nodes.nodeRemoved.add( removeFromDisplay );
+  }
+
+  override public function removeFromEngine(engine : Engine) : Void {
+  }
+
+  private function addToDisplay(node : RenderNode) : Void {
+    var sprite : Sprite = new Sprite();
+    sprite.graphics.beginFill(0xFFFFFF);
+    sprite.graphics.drawRect(0, 0, 100, 100);
+    node.viewDefinition.sprite = sprite;
+
+    container.addChild(node.viewDefinition.sprite);
+  }
+
+  private function removeFromDisplay( node : RenderNode ) : Void {
+    container.removeChild(node.viewDefinition.sprite);
   }
 
   override public function update(time : Float) : Void {

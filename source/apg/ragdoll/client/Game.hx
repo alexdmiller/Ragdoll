@@ -34,14 +34,14 @@ class Game {
 
     var gameComponents : GameComponentsMessage =
         cast(messageSocket.recieve(), GameComponentsMessage);*/
+
     var engine = new Engine();
-    engine.addSystem(new RenderSystem(), 1);
+    engine.addSystem(new RenderSystem(container), 1);
 
     var entity = new Entity('box')
-      .add(new apg.ragdoll.components.ViewDefinition('my view'));
+      .add(new apg.ragdoll.components.ViewDefinition('my view'))
+      .add(new apg.ragdoll.components.PhysicalBody(10, 10));
     engine.addEntity(entity);
-
-    trace(EngineSerializer.run(engine));
 
     var tickProvider = new FrameTickProvider(container);
     tickProvider.add(engine.update);
