@@ -38,10 +38,13 @@ class Game {
     var engine = new Engine();
     engine.addSystem(new RenderSystem(container), 1);
 
-    var entity = new Entity('box')
-      .add(new apg.ragdoll.components.ViewDefinition('my view'))
-      .add(new apg.ragdoll.components.PhysicalBody(10, 10));
-    engine.addEntity(entity);
+    engine.addEntity(new Entity('box1')
+      .add(new apg.ragdoll.components.ViewDefinition(0xFFFFFF))
+      .add(new apg.ragdoll.components.PhysicalBody(10, 10, 30, 30)));
+
+    engine.addEntity(new Entity('box2')
+      .add(new apg.ragdoll.components.ViewDefinition(0xFF0000))
+      .add(new apg.ragdoll.components.PhysicalBody(50, 10, 50, 50)));
 
     var tickProvider = new FrameTickProvider(container);
     tickProvider.add(engine.update);

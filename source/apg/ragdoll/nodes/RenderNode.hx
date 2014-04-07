@@ -18,5 +18,5 @@ class RenderNode extends Node<RenderNode> {
   public var viewDefinition : ViewDefinition;
   public var physicalBody : PhysicalBody;
 
-  public var sprite(default, default) : DisplayObject;
+  public var displayObject(default, default) : DisplayObject;
 }

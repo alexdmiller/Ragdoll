@@ -23,13 +23,6 @@ class Main extends Sprite {
   }
 
   private function init(event) {
-    /*var socket = new Socket();
-    socket.connect(new sys.net.Host("localhost"), 9999);
-    var messageSocket : MessageSocket = new HaxeMessageSocket(socket);
-    messageSocket.send(PlayerInfoMessage.withName(Std.string(Std.random(20))));
-
-    var gameComponents : GameComponentsMessage =
-        cast(messageSocket.recieve(), GameComponentsMessage);*/
     var game = new Game(this);
   }
 }

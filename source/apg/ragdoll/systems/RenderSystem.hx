@@ -5,12 +5,14 @@ import flash.display.Sprite;
 
 import ash.core.System;
 import ash.core.Engine;
+import ash.core.NodeList;
 
 import apg.ragdoll.nodes.RenderNode;
 import apg.ragdoll.components.PhysicalBody;
 
 class RenderSystem extends System {
   var container : DisplayObjectContainer;
+  var nodes : NodeList<RenderNode>;
 
   public function new(container : DisplayObjectContainer) {
     super();
@@ -18,30 +20,36 @@ class RenderSystem extends System {
   }
 
   override public function addToEngine(engine : Engine) : Void {
-    var nodes = engine.getNodeList(RenderNode);
+    nodes = engine.getNodeList(RenderNode);
     for (node in nodes) {
       addToDisplay(node);
     }
-    nodes.nodeAdded.add(addToDisplay );
-    nodes.nodeRemoved.add( removeFromDisplay );
+    nodes.nodeAdded.add(addToDisplay);
+    nodes.nodeRemoved.add(removeFromDisplay);
   }
 
   override public function removeFromEngine(engine : Engine) : Void {
+    nodes = null;
   }
 
   private function addToDisplay(node : RenderNode) : Void {
     var sprite : Sprite = new Sprite();
-    sprite.graphics.beginFill(0xFFFFFF);
-    sprite.graphics.drawRect(0, 0, 100, 100);
-    node.sprite = sprite;
+    sprite.graphics.beginFill(node.viewDefinition.color);
+    sprite.graphics.drawRect(0, 0, node.physicalBody.width,
+        node.physicalBody.height);
+    node.displayObject = sprite;
 
-    container.addChild(node.sprite);
+    container.addChild(node.displayObject);
   }
 
   private function removeFromDisplay( node : RenderNode ) : Void {
-    container.removeChild(node.sprite);
+    container.removeChild(node.displayObject);
   }
 
   override public function update(time : Float) : Void {
+    for (node in nodes) {
+      node.displayObject.x = node.physicalBody.x;
+      node.displayObject.y = node.physicalBody.y;
+    }
   }
 }
