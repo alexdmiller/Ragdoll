@@ -14,6 +14,7 @@ import ash.tick.FrameTickProvider;
 import apg.net.MessageSocket;
 import apg.net.HaxeMessageSocket;
 import apg.ragdoll.systems.RenderSystem;
+import apg.ragdoll.systems.NetworkSystem;
 import apg.ragdoll.serialization.EngineSerializer;
 import apg.ragdoll.messages.PlayerInfoMessage;
 import apg.ragdoll.messages.GameComponentsMessage;
@@ -27,16 +28,19 @@ class Game {
   }
 
   private function init() {
-    /*var socket = new Socket();
+    var socket = new Socket();
+    // TODO: handle retry logic when connection fails
     socket.connect(new sys.net.Host("localhost"), 9999);
     var messageSocket : MessageSocket = new HaxeMessageSocket(socket);
-    messageSocket.send(PlayerInfoMessage.withName(Std.string(Std.random(20))));
-
-    var gameComponents : GameComponentsMessage =
-        cast(messageSocket.recieve(), GameComponentsMessage);*/
 
     var engine = new Engine();
-    engine.addSystem(new RenderSystem(container), 1);
+    engine.addSystem(new NetworkSystem(), 1);
+    engine.addSystem(new RenderSystem(container), 2);
+
+    engine.addEntity(new Entity('socket')
+      .add(new apg.ragdoll.components.ServerConnection(messageSocket)));
+
+    messageSocket.send(PlayerInfoMessage.withName(Std.string(Std.random(20))));
 
     engine.addEntity(new Entity('box1')
       .add(new apg.ragdoll.components.ViewDefinition(0xFFFFFF))
