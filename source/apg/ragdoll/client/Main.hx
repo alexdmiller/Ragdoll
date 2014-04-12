@@ -14,7 +14,6 @@ import apg.net.MessageSocket;
 import apg.net.HaxeMessageSocket;
 import apg.ragdoll.systems.RenderSystem;
 import apg.ragdoll.messages.PlayerInfoMessage;
-import apg.ragdoll.messages.GameComponentsMessage;
 
 class Main extends Sprite {
   public function new() {

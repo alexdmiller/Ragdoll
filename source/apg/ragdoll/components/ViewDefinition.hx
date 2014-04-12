@@ -1,7 +1,5 @@
 package apg.ragdoll.components;
 
-import flash.display.Sprite;
-
 class ViewDefinition {
   public var color : Int;
 

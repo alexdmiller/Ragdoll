@@ -21,8 +21,4 @@ class HaxeMessageSocket implements MessageSocket {
     var message : Message = Unserializer.run(messageString);
     return message;
   }
-
-  public function setBlocking(blocking : Bool) : Void {
-    socket.setBlocking(blocking);
-  }
 }

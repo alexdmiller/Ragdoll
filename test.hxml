@@ -1,0 +1,10 @@
+
+
+## Neko
+-main TestMain
+-lib munit
+-lib hamcrest
+-lib ash
+-cp tests
+-cp source
+-neko bin/neko_test.n
