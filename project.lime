@@ -11,8 +11,8 @@
   <!-- classpath, haxe libs -->
   <source path="source" />
   <haxelib name="openfl" />
-  <haxelib name="nape"/>
   <haxelib name="ash" />
+  <haxelib name="nape"/>  
 
   <!-- assets -->
   <!-- <assets path="assets" /> -->
@@ -21,6 +21,7 @@
   <!--haxedef name="TRUE_ZOOM_OUT" /-->
   <!--haxedef name="dev" /-->
   <haxedef name="NAPE_RELEASE_BUILD"/>
+  <haxedef name="NAPE_NO_INLINE" if="neko" />
   <haxedef name="HXCPP_DEBUGGER" if="cpp" />
   <haxedef name="FLX_DEBUG"/>
 </project>
