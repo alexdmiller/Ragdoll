@@ -15,6 +15,7 @@ import apg.net.MessageSocket;
 import apg.net.HaxeMessageSocket;
 import apg.ragdoll.systems.RenderSystem;
 import apg.ragdoll.systems.NetworkSystem;
+import apg.ragdoll.systems.PhysicsSystem;
 import apg.ragdoll.messages.PlayerInfoMessage;
 
 class Game {
@@ -34,6 +35,7 @@ class Game {
     var engine = new Engine();
     engine.addSystem(new NetworkSystem(), 1);
     engine.addSystem(new RenderSystem(container), 2);
+    engine.addSystem(new PhysicsSystem(), 3);
 
     engine.addEntity(new Entity('socket')
       .add(new apg.ragdoll.components.ServerConnection(messageSocket)));
