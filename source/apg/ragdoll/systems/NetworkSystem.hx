@@ -4,18 +4,22 @@ import ash.core.System;
 import ash.core.Engine;
 import ash.core.NodeList;
 
+import apg.engine.EngineEntityMerger;
 import apg.net.MessageThread;
+import apg.net.MessageSocket.Message;
 import apg.ragdoll.messages.EntitiesMessage;
 import apg.ragdoll.nodes.NetworkNode;
 
 class NetworkSystem extends System {
-  var nodes : NodeList<NetworkNode>;
+  private var nodes : NodeList<NetworkNode>;
+  private var engine : Engine;
 
   public function new() {
     super();
   }
 
   override public function addToEngine(engine : Engine) : Void {
+    this.engine = engine;
     nodes = engine.getNodeList(NetworkNode);
     for (node in nodes) {
       initializeNetworkNode(node);
@@ -29,6 +33,7 @@ class NetworkSystem extends System {
       tearDownNetworkNode(node);
     }
     nodes = null;
+    engine = null;
   }
 
   private function initializeNetworkNode(node : NetworkNode) : Void {
@@ -40,14 +45,23 @@ class NetworkSystem extends System {
     node.messages.stop();
   }
 
-  // should this be in a thread by itself?
   override public function update(time : Float) : Void {
     for (node in nodes) {
       if (node.messages.hasMessage()) {
+        // loop through all available messages maybe?
         var message = node.messages.popMessage();
-        trace("Got message!");
-        trace(message);
+        handleMessage(message);
       }
+    }
+  }
+
+  private function handleMessage(message : Message) : Void {
+    switch (Type.getClass(message)) {
+      case EntitiesMessage:
+        var entitiesMessage : EntitiesMessage = cast(message, EntitiesMessage);
+        new EngineEntityMerger(engine).foldInEntities(entitiesMessage.entities);
+      default:
+        throw "NetworkSystem cannot handle message type.";
     }
   }
 }
