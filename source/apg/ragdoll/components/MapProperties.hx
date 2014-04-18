@@ -1,6 +1,6 @@
 package apg.ragdoll.components;
 
-class MapPhysicsProperties {
+class MapProperties {
   public var gravity : Float;
 
   public function new(gravity : Float) {

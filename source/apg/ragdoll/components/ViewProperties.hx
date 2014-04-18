@@ -1,6 +1,6 @@
 package apg.ragdoll.components;
 
-class ViewDefinition {
+class ViewProperties {
   public var color : Int;
 
   public function new(color : Int) {

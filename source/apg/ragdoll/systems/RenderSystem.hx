@@ -8,7 +8,6 @@ import ash.core.Engine;
 import ash.core.NodeList;
 
 import apg.ragdoll.nodes.RenderNode;
-import apg.ragdoll.components.PhysicalBody;
 
 class RenderSystem extends System {
   var container : DisplayObjectContainer;
@@ -34,9 +33,8 @@ class RenderSystem extends System {
 
   private function addToDisplay(node : RenderNode) : Void {
     var sprite : Sprite = new Sprite();
-    sprite.graphics.beginFill(node.viewDefinition.color);
-    sprite.graphics.drawRect(0, 0, node.physicalBody.width,
-        node.physicalBody.height);
+    sprite.graphics.beginFill(node.viewProperties.color);
+    sprite.graphics.drawRect(0, 0, 10, 10);
     node.displayObject = sprite;
 
     container.addChild(node.displayObject);
@@ -48,8 +46,8 @@ class RenderSystem extends System {
 
   override public function update(time : Float) : Void {
     for (node in nodes) {
-      node.displayObject.x = node.physicalBody.x;
-      node.displayObject.y = node.physicalBody.y;
+      node.displayObject.x = node.position.x;
+      node.displayObject.y = node.position.y;
     }
   }
 }

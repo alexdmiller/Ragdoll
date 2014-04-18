@@ -1,7 +1,5 @@
 package apg.ragdoll.nodes;
 
-import flash.display.DisplayObject;
-
 import ash.core.Node;
 
 import apg.ragdoll.components.ServerConnection;
