@@ -18,6 +18,7 @@ import apg.ragdoll.nodes.PhysicalBodyNode;
 import apg.ragdoll.nodes.MapPropertiesNode;
 import apg.ragdoll.components.NapeBodyProperties;
 import apg.ragdoll.components.MapProperties;
+import apg.ragdoll.utils.NapeUtils;
 
 class PhysicsSystem extends System {
   private var propertyNodes : NodeList<MapPropertiesNode>;
@@ -27,9 +28,6 @@ class PhysicsSystem extends System {
   public function new() {
     super();
     space = new Space();
-
-    var circle = new Circle(50);
-    trace(circle.radius);
   }
 
   override public function addToEngine(engine : Engine) : Void {
@@ -48,7 +46,6 @@ class PhysicsSystem extends System {
   }
 
   private function setupPhysicalBodyNodes(engine : Engine) : Void {
-    // TODO: handle creation of physics bodies
     physicalBodyNodes = engine.getNodeList(PhysicalBodyNode);
     for (node in physicalBodyNodes) {
       createNapeBody(node);
@@ -57,10 +54,7 @@ class PhysicsSystem extends System {
   }
 
   private function createNapeBody(node : PhysicalBodyNode) {
-    var body = new Body(node.bodyProperties.bodyType);
-    for (shape in node.bodyProperties.shapes) {
-      body.shapes.add(shape);
-    }
+    var body : Body = NapeUtils.createBody(node.bodyProperties, node.shapes);
     body.position.setxy(node.position.x, node.position.y);
     body.velocity.setxy(node.velocity.x, node.velocity.y);
     space.bodies.add(body);

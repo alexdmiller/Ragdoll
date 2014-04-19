@@ -7,6 +7,11 @@ import ash.core.System;
 import ash.core.Engine;
 import ash.core.NodeList;
 
+import apg.ragdoll.components.Shapes;
+import apg.ragdoll.components.Shape;
+import apg.ragdoll.components.Circle;
+import apg.ragdoll.components.Rectangle;
+
 import apg.ragdoll.nodes.RenderNode;
 
 class RenderSystem extends System {
@@ -34,7 +39,21 @@ class RenderSystem extends System {
   private function addToDisplay(node : RenderNode) : Void {
     var sprite : Sprite = new Sprite();
     sprite.graphics.beginFill(node.viewProperties.color);
-    sprite.graphics.drawRect(0, 0, 10, 10);
+
+    var shapes : Shapes = node.entity.get(Shapes);
+    if (shapes != null) {
+      var shape : Shape = shapes.shapes[0];
+      switch (Type.getClass(shape)) {
+        case Circle:
+          var circle : Circle = cast(shape, Circle);
+          sprite.graphics.drawCircle(0, 0, circle.radius);
+        case Rectangle:
+          var rectangle : Rectangle = cast(shape, Rectangle);
+          sprite.graphics.drawRect(0, 0, rectangle.width, rectangle.height);
+      }
+    } else {
+      sprite.graphics.drawRect(0, 0, 10, 10);
+    }
     node.displayObject = sprite;
 
     container.addChild(node.displayObject);
