@@ -1,6 +1,7 @@
 import massive.munit.TestSuite;
 
 import apg.ragdoll.messages.EntitiesMessageTest;
+import apg.ragdoll.utils.NapeUtilsTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -15,5 +16,6 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(apg.ragdoll.messages.EntitiesMessageTest);
+		add(apg.ragdoll.utils.NapeUtilsTest);
 	}
 }

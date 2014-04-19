@@ -12,6 +12,7 @@ import nape.geom.Vec2;
 import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.shape.Polygon;
+import nape.shape.Circle;
 
 import apg.ragdoll.nodes.PhysicalBodyNode;
 import apg.ragdoll.nodes.MapPropertiesNode;
@@ -26,6 +27,9 @@ class PhysicsSystem extends System {
   public function new() {
     super();
     space = new Space();
+
+    var circle = new Circle(50);
+    trace(circle.radius);
   }
 
   override public function addToEngine(engine : Engine) : Void {

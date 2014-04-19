@@ -16,12 +16,15 @@ class SendInitialGameStateToPlayers extends BaseGameState implements GameState {
     entitiesMessage.entities.push(new Entity('physics properties')
       .add(new apg.ragdoll.components.MapProperties(300)));
 
-    var napeBodyProperties = new apg.ragdoll.components.NapeBodyProperties();
-    napeBodyProperties.shapes.push(new Circle(50));
-
-    entitiesMessage.entities.push(new Entity('box1')
+    entitiesMessage.entities.push(new Entity('circle')
       .add(new apg.ragdoll.components.ViewProperties(0xFF0000))
-      .add(napeBodyProperties)
+      .add(new apg.ragdoll.components.Circle(50))
+      .add(new apg.ragdoll.components.Position(100, 100))
+      .add(new apg.ragdoll.components.Velocity(1, 0)));
+
+    entitiesMessage.entities.push(new Entity('box')
+      .add(new apg.ragdoll.components.ViewProperties(0xFF0000))
+      .add(new apg.ragdoll.components.Rectangle(20, 20))
       .add(new apg.ragdoll.components.Position(100, 100))
       .add(new apg.ragdoll.components.Velocity(1, 0)));
 

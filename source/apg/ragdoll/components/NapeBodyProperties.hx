@@ -7,7 +7,7 @@ class NapeBodyProperties {
   public var shapes : Array<Shape>;
   public var bodyType : BodyType;
 
-  public function new() {
+  public function new(bodyType : BodyType) {
     shapes = new Array<Shape>();
     bodyType = BodyType.DYNAMIC;
   }
