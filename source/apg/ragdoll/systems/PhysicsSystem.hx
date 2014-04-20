@@ -21,9 +21,11 @@ import apg.ragdoll.components.MapProperties;
 import apg.ragdoll.utils.NapeUtils;
 
 class PhysicsSystem extends System {
+  public var space : Space;
+
   private var propertyNodes : NodeList<MapPropertiesNode>;
   private var physicalBodyNodes : NodeList<PhysicalBodyNode>;
-  private var space : Space;
+
 
   public function new() {
     super();
@@ -38,11 +40,17 @@ class PhysicsSystem extends System {
   private function setupMapPropertiesNodes(engine : Engine) : Void {
     propertyNodes = engine.getNodeList(MapPropertiesNode);
     for (node in propertyNodes) {
-      space.gravity = Vec2.weak(0, node.properties.gravity);
+      setupSpace(node);
     }
-    propertyNodes.nodeAdded.add(function(node : MapPropertiesNode){
-      space.gravity = Vec2.weak(0, node.properties.gravity);
-    });
+    propertyNodes.nodeAdded.add(setupSpace);
+  }
+
+  private function setupSpace(node : MapPropertiesNode) {
+    space.gravity = Vec2.weak(0, node.properties.gravity);
+    var floor = new Body(BodyType.STATIC);
+    floor.shapes.add(new Polygon(Polygon.rect(0, node.properties.mapHeight,
+        node.properties.mapWidth, 1)));
+    space.bodies.add(floor);
   }
 
   private function setupPhysicalBodyNodes(engine : Engine) : Void {
