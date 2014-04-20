@@ -68,6 +68,7 @@ class RenderSystem extends System {
     for (node in nodes) {
       node.displayObject.x = node.position.x;
       node.displayObject.y = node.position.y;
+      trace(node.position);
       var rotation = node.entity.get(apg.ragdoll.components.Rotation);
       if (rotation != null) {
         node.displayObject.rotation = rotation.theta * 180 / Math.PI;

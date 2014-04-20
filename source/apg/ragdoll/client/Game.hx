@@ -17,6 +17,7 @@ import apg.ragdoll.systems.RenderSystem;
 import apg.ragdoll.systems.NetworkSystem;
 import apg.ragdoll.systems.PhysicsSystem;
 import apg.ragdoll.systems.PhysicsDebugRenderSystem;
+import apg.ragdoll.systems.GameStateSystem;
 import apg.ragdoll.messages.PlayerInfoMessage;
 
 class Game {
@@ -33,12 +34,17 @@ class Game {
     socket.connect(new sys.net.Host("localhost"), 9999);
     var messageSocket : MessageSocket = new HaxeMessageSocket(socket);
 
-    var engine = new Engine();
-    engine.addSystem(new NetworkSystem(), 1);
-    engine.addSystem(new RenderSystem(container), 2);
     var physicsSystem = new PhysicsSystem();
-    engine.addSystem(physicsSystem, 3);
-    //engine.addSystem(new PhysicsDebugRenderSystem(physicsSystem, container), 4);
+    var networkSystem = new NetworkSystem();
+    var renderSystem = new RenderSystem(container);
+    var gameStateSystem = new GameStateSystem(physicsSystem, networkSystem);
+
+    var engine = new Engine();
+    engine.addSystem(networkSystem, 1);
+    engine.addSystem(physicsSystem, 2);
+    // engine.addSystem(renderSystem, 3);
+    engine.addSystem(gameStateSystem, 4);
+    engine.addSystem(new PhysicsDebugRenderSystem(physicsSystem, container), 4);
 
     engine.addEntity(new Entity('socket')
       .add(new apg.ragdoll.components.ServerConnection(messageSocket)));

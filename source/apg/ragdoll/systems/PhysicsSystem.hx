@@ -26,11 +26,13 @@ class PhysicsSystem extends System {
 
   private var propertyNodes : NodeList<MapPropertiesNode>;
   private var physicalBodyNodes : NodeList<PhysicalBodyNode>;
+  private var paused : Bool;
 
 
   public function new() {
     super();
     space = new Space();
+    paused = false;
   }
 
   override public function addToEngine(engine : Engine) : Void {
@@ -77,7 +79,9 @@ class PhysicsSystem extends System {
   }
 
   override public function update(time : Float) : Void {
-    space.step(time);
+    if (!paused) {
+      space.step(time);
+    }
     for (node in physicalBodyNodes) {
       // Export position to publically viewable component for other systems.
       node.position.x = node.body.position.x;
@@ -89,5 +93,13 @@ class PhysicsSystem extends System {
       rotation.theta = node.body.rotation;
       // TODO: export angle, other properties (?)
     }
+  }
+
+  public function pause() : Void {
+    paused = true;
+  }
+
+  public function unpause() : Void {
+    paused = false;
   }
 }
