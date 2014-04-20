@@ -49,7 +49,8 @@ class RenderSystem extends System {
           sprite.graphics.drawCircle(0, 0, circle.radius);
         case Rectangle:
           var rectangle : Rectangle = cast(shape, Rectangle);
-          sprite.graphics.drawRect(0, 0, rectangle.width, rectangle.height);
+          sprite.graphics.drawRect(-rectangle.width / 2, -rectangle.height / 2, rectangle.width,
+              rectangle.height);
       }
     } else {
       sprite.graphics.drawRect(0, 0, 10, 10);
@@ -67,6 +68,10 @@ class RenderSystem extends System {
     for (node in nodes) {
       node.displayObject.x = node.position.x;
       node.displayObject.y = node.position.y;
+      var rotation = node.entity.get(apg.ragdoll.components.Rotation);
+      if (rotation != null) {
+        node.displayObject.rotation = rotation.theta * 180 / Math.PI;
+      }
     }
   }
 }

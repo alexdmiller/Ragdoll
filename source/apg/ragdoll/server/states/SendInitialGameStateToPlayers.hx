@@ -28,7 +28,7 @@ class SendInitialGameStateToPlayers extends BaseGameState implements GameState {
     entitiesMessage.entities.push(new Entity('box')
       .add(new apg.ragdoll.components.ViewProperties(0x0000FF))
       .add(new Shapes([new apg.ragdoll.components.Rectangle(50, 50)]))
-      .add(new apg.ragdoll.components.Position(50, -200))
+      .add(new apg.ragdoll.components.Position(60, -200))
       .add(new apg.ragdoll.components.Velocity(0, 0))
       .add(new apg.ragdoll.components.NapeBodyProperties(BodyType.DYNAMIC)));
 

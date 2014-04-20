@@ -18,6 +18,7 @@ import apg.ragdoll.nodes.PhysicalBodyNode;
 import apg.ragdoll.nodes.MapPropertiesNode;
 import apg.ragdoll.components.NapeBodyProperties;
 import apg.ragdoll.components.MapProperties;
+import apg.ragdoll.components.Rotation;
 import apg.ragdoll.utils.NapeUtils;
 
 class PhysicsSystem extends System {
@@ -63,10 +64,16 @@ class PhysicsSystem extends System {
 
   private function createNapeBody(node : PhysicalBodyNode) {
     var body : Body = NapeUtils.createBody(node.bodyProperties, node.shapes);
-    body.position.setxy(node.position.x, node.position.y);
-    body.velocity.setxy(node.velocity.x, node.velocity.y);
     space.bodies.add(body);
     node.body = body;
+
+    body.position.setxy(node.position.x, node.position.y);
+    body.velocity.setxy(node.velocity.x, node.velocity.y);
+    if (!node.entity.has(Rotation)) {
+      node.entity.add(new Rotation());
+    }
+    var rotation = node.entity.get(Rotation);
+    body.rotation = rotation.theta;
   }
 
   override public function update(time : Float) : Void {
@@ -77,6 +84,9 @@ class PhysicsSystem extends System {
       node.position.y = node.body.position.y;
       node.velocity.x = node.body.velocity.x;
       node.velocity.y = node.body.velocity.y;
+
+      var rotation = node.entity.get(Rotation);
+      rotation.theta = node.body.rotation;
       // TODO: export angle, other properties (?)
     }
   }
