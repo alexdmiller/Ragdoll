@@ -13,6 +13,7 @@ import nape.util.Debug;
 class GameStateSystem extends System {
   private var physicsSystem : PhysicsSystem;
   private var networkSystem : NetworkSystem;
+  private var paused : Bool;
 
   public function new(physicsSystem : PhysicsSystem, networkSystem : NetworkSystem) {
     super();
@@ -22,8 +23,13 @@ class GameStateSystem extends System {
     this.networkSystem.entitiesRecieved.add(onEntitiesRecieved);
   }
 
+  public function isPaused() : Bool {
+    return paused;
+  }
+
   private function onEntitiesRecieved() : Void {
-    trace("ASDSAD");
-    //physicsSystem.pause();
+    physicsSystem.space.step(1);
+    physicsSystem.pause();
+    paused = true;
   }
 }

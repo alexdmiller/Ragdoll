@@ -18,6 +18,7 @@ import apg.ragdoll.systems.NetworkSystem;
 import apg.ragdoll.systems.PhysicsSystem;
 import apg.ragdoll.systems.PhysicsDebugRenderSystem;
 import apg.ragdoll.systems.GameStateSystem;
+import apg.ragdoll.systems.UserInputSystem;
 import apg.ragdoll.messages.PlayerInfoMessage;
 
 class Game {
@@ -38,13 +39,15 @@ class Game {
     var networkSystem = new NetworkSystem();
     var renderSystem = new RenderSystem(container);
     var gameStateSystem = new GameStateSystem(physicsSystem, networkSystem);
+    var userInputSystem = new UserInputSystem(gameStateSystem, container);
 
     var engine = new Engine();
     engine.addSystem(networkSystem, 1);
     engine.addSystem(physicsSystem, 2);
-    // engine.addSystem(renderSystem, 3);
-    engine.addSystem(gameStateSystem, 4);
-    engine.addSystem(new PhysicsDebugRenderSystem(physicsSystem, container), 4);
+    engine.addSystem(renderSystem, 3);
+    engine.addSystem(userInputSystem, 5);
+    engine.addSystem(gameStateSystem, 6);
+    // engine.addSystem(new PhysicsDebugRenderSystem(physicsSystem, container), 4);
 
     engine.addEntity(new Entity('socket')
       .add(new apg.ragdoll.components.ServerConnection(messageSocket)));

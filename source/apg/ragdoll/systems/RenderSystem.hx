@@ -11,6 +11,7 @@ import apg.ragdoll.components.Shapes;
 import apg.ragdoll.components.Shape;
 import apg.ragdoll.components.Circle;
 import apg.ragdoll.components.Rectangle;
+import apg.ragdoll.components.Vector;
 
 import apg.ragdoll.nodes.RenderNode;
 
@@ -52,9 +53,16 @@ class RenderSystem extends System {
           sprite.graphics.drawRect(-rectangle.width / 2, -rectangle.height / 2, rectangle.width,
               rectangle.height);
       }
-    } else {
-      sprite.graphics.drawRect(0, 0, 10, 10);
     }
+
+    var vector : Vector = node.entity.get(Vector);
+    if (vector != null) {
+      trace("sa;ldfkasdlkfj");
+      sprite.graphics.lineStyle(2, 0xFFFFFF, 1);
+      sprite.graphics.moveTo(0, 0);
+      sprite.graphics.lineTo(50, 50);
+    }
+
     node.displayObject = sprite;
 
     container.addChild(node.displayObject);
@@ -68,7 +76,6 @@ class RenderSystem extends System {
     for (node in nodes) {
       node.displayObject.x = node.position.x;
       node.displayObject.y = node.position.y;
-      trace(node.position);
       var rotation = node.entity.get(apg.ragdoll.components.Rotation);
       if (rotation != null) {
         node.displayObject.rotation = rotation.theta * 180 / Math.PI;

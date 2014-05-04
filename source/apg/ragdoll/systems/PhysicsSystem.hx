@@ -91,7 +91,6 @@ class PhysicsSystem extends System {
 
       var rotation = node.entity.get(Rotation);
       rotation.theta = node.body.rotation;
-      // TODO: export angle, other properties (?)
     }
   }
 
