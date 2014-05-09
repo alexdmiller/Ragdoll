@@ -19,17 +19,26 @@ class GameStateSystem extends System {
     super();
     this.physicsSystem = physicsSystem;
     this.networkSystem = networkSystem;
-
     this.networkSystem.entitiesRecieved.add(onEntitiesRecieved);
+    this.pause();
   }
 
   public function isPaused() : Bool {
     return paused;
   }
 
-  private function onEntitiesRecieved() : Void {
-    physicsSystem.space.step(1);
+  public function unpause() : Void {
+    this.paused = false;
+    physicsSystem.convertSlingsToForces();
+    physicsSystem.unpause();
+  }
+
+  public function pause() : Void {
+    this.paused = true;
     physicsSystem.pause();
-    paused = true;
+  }
+
+  private function onEntitiesRecieved() : Void {
+    // TODO: Is this really needed?
   }
 }

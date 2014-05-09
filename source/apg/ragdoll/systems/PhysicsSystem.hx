@@ -13,9 +13,11 @@ import nape.phys.Body;
 import nape.phys.BodyType;
 import nape.shape.Polygon;
 import nape.shape.Circle;
+import nape.phys.BodyList;
 
 import apg.ragdoll.nodes.PhysicalBodyNode;
 import apg.ragdoll.nodes.MapPropertiesNode;
+import apg.ragdoll.nodes.SlingNode;
 import apg.ragdoll.components.NapeBodyProperties;
 import apg.ragdoll.components.MapProperties;
 import apg.ragdoll.components.Rotation;
@@ -27,7 +29,7 @@ class PhysicsSystem extends System {
   private var propertyNodes : NodeList<MapPropertiesNode>;
   private var physicalBodyNodes : NodeList<PhysicalBodyNode>;
   private var paused : Bool;
-
+  private var engine : Engine;
 
   public function new() {
     super();
@@ -36,6 +38,7 @@ class PhysicsSystem extends System {
   }
 
   override public function addToEngine(engine : Engine) : Void {
+    this.engine = engine;
     setupMapPropertiesNodes(engine);
     setupPhysicalBodyNodes(engine);
   }
@@ -100,5 +103,22 @@ class PhysicsSystem extends System {
 
   public function unpause() : Void {
     paused = false;
+  }
+
+  public function convertSlingsToForces() : Void {
+    var slings = this.engine.getNodeList(SlingNode);
+    var slingsArray : Array<SlingNode> = new Array<SlingNode>();
+    for (sling in slings) {
+      slingsArray.push(sling);
+      var slingOrigin = sling.start.toVec2();
+      var bodies : BodyList = this.space.bodiesUnderPoint(slingOrigin);
+      // TODO: check to see what type of bodies the force was applied to
+      for (body in bodies) {
+        body.applyImpulse(sling.impulse(), slingOrigin);
+      }
+    }
+    for (sling in slingsArray) {
+      this.engine.removeEntity(sling.entity);
+    }
   }
 }

@@ -57,10 +57,11 @@ class RenderSystem extends System {
 
     var vector : Vector = node.entity.get(Vector);
     if (vector != null) {
-      trace("sa;ldfkasdlkfj");
-      sprite.graphics.lineStyle(2, 0xFFFFFF, 1);
+      sprite.graphics.lineStyle(2, node.viewProperties.color, 1);
       sprite.graphics.moveTo(0, 0);
-      sprite.graphics.lineTo(50, 50);
+      sprite.graphics.lineTo(vector.x, vector.y);
+      sprite.x = node.position.x;
+      sprite.y = node.position.y;
     }
 
     node.displayObject = sprite;
@@ -68,17 +69,25 @@ class RenderSystem extends System {
     container.addChild(node.displayObject);
   }
 
-  private function removeFromDisplay( node : RenderNode ) : Void {
+  private function removeFromDisplay(node : RenderNode) : Void {
     container.removeChild(node.displayObject);
   }
 
   override public function update(time : Float) : Void {
     for (node in nodes) {
-      node.displayObject.x = node.position.x;
-      node.displayObject.y = node.position.y;
-      var rotation = node.entity.get(apg.ragdoll.components.Rotation);
-      if (rotation != null) {
-        node.displayObject.rotation = rotation.theta * 180 / Math.PI;
+      if (node.entity.get(Shapes) != null)
+        node.displayObject.x = node.position.x;
+        node.displayObject.y = node.position.y;
+        var rotation = node.entity.get(apg.ragdoll.components.Rotation);
+        if (rotation != null) {
+          node.displayObject.rotation = rotation.theta * 180 / Math.PI;
+      } else if (node.entity.get(Vector) != null) {
+        var vector : Vector = node.entity.get(Vector);
+        node.displayObject.graphics.clear();
+        node.displayObject.graphics.lineStyle(2, node.viewProperties.color, 1);
+        node.displayObject.graphics.moveTo(0, 0);
+        node.displayObject.graphics.lineTo(vector.x - node.displayObject.x,
+                                           vector.y - node.displayObject.y);
       }
     }
   }

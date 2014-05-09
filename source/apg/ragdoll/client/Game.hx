@@ -22,9 +22,9 @@ import apg.ragdoll.systems.UserInputSystem;
 import apg.ragdoll.messages.PlayerInfoMessage;
 
 class Game {
-  private var container : DisplayObjectContainer;
+  private var container : Sprite;
 
-  public function new(container : DisplayObjectContainer) {
+  public function new(container : Sprite) {
     this.container = container;
     init();
   }
